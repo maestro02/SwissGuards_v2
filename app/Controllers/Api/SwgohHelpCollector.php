@@ -109,7 +109,7 @@ class SwgohHelpCollector extends BaseController
 				if(in_array(2, $e->uiFilterList, false)){
 					$category->setShipFilter(true);
 				}
-				$category->setUpdated($e->updated);
+				$category->setUpdated(date('Y-m-d H:i:s', $e->updated));
 
 				$category->save($category);
 
