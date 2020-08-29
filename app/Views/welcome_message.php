@@ -222,16 +222,16 @@
 
 		<h2>The small framework with powerful features</h2>
 
-		<h2>Englisch</h2>
-		<div><?php echo $result_en;?></div>
-		<h2>Deutsch</h2>
-		<div><?php echo $result_de; ?></div>
-
 	</div>
 
 </header>
 
 <!-- CONTENT -->
+
+<h2>Englisch</h2>
+<div><?php echo $result_en;?></div>
+<h2>Deutsch</h2>
+<div><?php echo $result_de; ?></div>
 
 <section>
 
