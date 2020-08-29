@@ -10,11 +10,11 @@ class SkillModel extends Model
 	protected string $id;
 	protected string $nameKeyEn;
 	protected string $nameKeyDe;
-	protected string $icon;
+	protected string $image;
 	protected string $abilityId;
 	protected string $skillType;
 	protected bool $zeta;
-	protected int $updated;
+	protected \DateTime $updated;
 
 	/**
 	 * @return string
@@ -67,17 +67,17 @@ class SkillModel extends Model
 	/**
 	 * @return string
 	 */
-	public function getIcon():string
+	public function getImage():string
 	{
-		return $this->icon;
+		return $this->image;
 	}
 
 	/**
-	 * @param string $icon
+	 * @param string $image
 	 */
-	public function setIcon(string $icon):void
+	public function setImage(string $image):void
 	{
-		$this->icon = $icon;
+		$this->image = $image;
 	}
 
 	/**

@@ -12,8 +12,9 @@ class PlayerModel extends Model
 	protected int $allyCode;
 	protected int $level;
 	protected string $guildId;
-	protected int $lastActivity;
-	protected int $updated;
+	protected \DateTime $lastActivity;
+	protected \DateTime $updated;
+	/* TODO: stats as single datatype incl. table definition */
 
 	/**
 	 * @return string

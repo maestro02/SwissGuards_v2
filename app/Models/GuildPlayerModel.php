@@ -7,7 +7,7 @@ class GuildPlayerModel extends Model
 	protected $table = 'guildPlayer';
 	protected $primaryKey = 'id, allyCode';
 
-	protected string $id;
+	protected string $guildId;
 	protected int $allyCode;
 	protected int $guildMemberStatus;
 

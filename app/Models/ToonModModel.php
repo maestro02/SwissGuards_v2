@@ -7,7 +7,7 @@ class ToonModModel extends Model
 	protected $table = 'toonMod';
 	protected $primaryKey = 'toonId, modId';
 
-	protected string $toonId;
+	protected string $toonId; //playerToon
 	protected string $modId;
 
 	/**

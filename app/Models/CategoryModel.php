@@ -12,7 +12,7 @@ class CategoryModel extends Model
 	protected string $descKeyDe;
 	protected bool $toonFilter; // uiFilterList = 1
 	protected bool $shipFilter; // uiFilterList = 2
-	protected int $updated;
+	protected \DateTime $updated;
 
 	/**
 	 * @return string

@@ -7,6 +7,7 @@ class SquadModel extends Model
 	protected $table = 'squad';
 	protected $primaryKey = 'id';
 
+	protected int $id;
 	protected int $arenaId;
 	protected string $toonId;
 	protected int $squadType;

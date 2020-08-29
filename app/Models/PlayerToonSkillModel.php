@@ -2,12 +2,12 @@
 
 use CodeIgniter\Model;
 
-class ToonSkillModel extends Model
+class PlayerToonSkillModel extends Model
 {
-	protected $table = 'toonSkill';
-	protected $primaryKey = 'toonId, skillId, tier';
+	protected $table = 'playerToonSkill';
+	protected $primaryKey = 'toonId, skillId';
 
-	protected string $toonId;
+	protected string $toonId; // playerToon
 	protected string $skillId;
 	protected int $tier;
 

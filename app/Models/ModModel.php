@@ -4,13 +4,13 @@ use CodeIgniter\Model;
 
 class ModModel extends Model
 {
-	protected $table = 'mod';
+	protected $table = 'mods';
 	protected $primaryKey = 'id';
 
 	protected string $id;
 	protected int $level;
 	protected int $tier;
-	protected int $set;
+	protected int $setType;
 	protected int $pips;
 	protected int $primaryStatType;
 	protected int $primaryStatValue;
@@ -67,17 +67,17 @@ class ModModel extends Model
 	/**
 	 * @return int
 	 */
-	public function getSet():int
+	public function getSetType():int
 	{
-		return $this->set;
+		return $this->setType;
 	}
 
 	/**
-	 * @param int $set
+	 * @param int $setType
 	 */
-	public function setSet(int $set):void
+	public function setSet(int $setType):void
 	{
-		$this->set = $set;
+		$this->$setType = $setType;
 	}
 
 	/**

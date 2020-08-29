@@ -8,7 +8,7 @@ class AbilityTierModel extends Model
 	protected $primaryKey = 'id';
 
 	protected int $id;
-	protected int $abilityId;
+	protected string $abilityId;
 	protected int $tier;
 	protected string $descKeyEn;
 	protected string $descKeyDe;

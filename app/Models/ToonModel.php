@@ -12,11 +12,11 @@ class ToonModel extends Model
 	protected string $nameKeyDe;
 	protected string $descKeyEn;
 	protected string $descKeyDe;
-	protected string $iconName;
+	protected string $image;
 	protected int $maxRarity;
 	protected string $forceAlignment;
 	protected string $combatType;
-	protected int $updated;
+	protected \DateTime $updated;
 
 	/**
 	 * @return string
@@ -101,17 +101,17 @@ class ToonModel extends Model
 	/**
 	 * @return string
 	 */
-	public function getIconName():string
+	public function getImage():string
 	{
-		return $this->iconName;
+		return $this->image;
 	}
 
 	/**
-	 * @param string $iconName
+	 * @param string $image
 	 */
-	public function setIconName(string $iconName):void
+	public function setImage(string $image):void
 	{
-		$this->iconName = $iconName;
+		$this->image = $image;
 	}
 
 	/**

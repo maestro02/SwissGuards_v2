@@ -5,11 +5,11 @@ use CodeIgniter\Model;
 class ToonEquipmentModel extends Model
 {
 	protected $table = 'toonEquipment';
-	protected $primaryKey = 'toonId, equipmentId';
+	protected $primaryKey = 'toonId, slot';
 
 	protected string $toonId;
-	protected string $equipmentId;
 	protected int $slot;
+	protected string $equipmentId;
 
 	/**
 	 * @return string

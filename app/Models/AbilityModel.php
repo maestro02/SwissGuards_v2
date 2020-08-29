@@ -15,7 +15,7 @@ class AbilityModel extends Model
 	protected int $cooldown;
 	protected string $image;
 	protected int $ultimateChargeRequired;
-	protected int $updated;
+	protected \DateTime $updated;
 
 	/**
 	 * @return string
