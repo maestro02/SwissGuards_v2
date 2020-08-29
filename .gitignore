@@ -46,13 +46,6 @@ $RECYCLE.BIN/
 Vagrantfile
 
 #-------------------------
-# Config Data
-#-------------------------
-# These should never be under version control,
-# as it poses a security risk.
-app/Config/Database.php
-
-#-------------------------
 # Temporary Files
 #-------------------------
 writable/cache/*
