@@ -11,7 +11,7 @@ class RecipeModel extends Model
 	protected string $descKeyEn;
 	protected string $descKeyDe;
 	protected int $type;
-	protected int $updated;
+	protected \DateTime $updated;
 
 	/**
 	 * @return string

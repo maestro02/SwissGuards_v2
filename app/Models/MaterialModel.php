@@ -21,7 +21,7 @@ class MaterialModel extends Model
 	protected int $rarity;
 	protected int $tier;
 	protected string $recipeId;
-	protected int $updated;
+	protected \DateTime $updated;
 
 	/**
 	 * @return string

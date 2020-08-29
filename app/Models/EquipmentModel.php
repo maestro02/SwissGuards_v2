@@ -14,7 +14,7 @@ class EquipmentModel extends Model
 	protected string $recipeId;
 	protected int $tier;
 	protected string $mark;
-	protected int $updated;
+	protected \DateTime $updated;
 	protected int $sellCurrency;
 	protected int $sellQuantity;
 	protected int $sellBonus;

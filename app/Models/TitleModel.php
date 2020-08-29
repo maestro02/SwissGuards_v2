@@ -14,7 +14,7 @@ class TitleModel extends Model
 	protected string $descKeyDe;
 	protected string $shortDescKeyEn;
 	protected string $shortDescKeyDe;
-	protected int $updated;
+	protected \DateTime $updated;
 
 	/**
 	 * @return string

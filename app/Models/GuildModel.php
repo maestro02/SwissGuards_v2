@@ -1,5 +1,6 @@
 <?php namespace App\Models;
 
+use Cassandra\Date;
 use CodeIgniter\Model;
 
 class GuildModel extends Model
@@ -11,7 +12,7 @@ class GuildModel extends Model
 	protected int $memberCount;
 	protected string $name;
 	protected int $gp;
-	protected int $updated;
+	protected \DateTime $updated;
 
 	/**
 	 * @return string
