@@ -2,7 +2,7 @@
 
 use CodeIgniter\Model;
 
-class crewModel extends Model
+class CrewModel extends Model
 {
 	protected $table = 'crew';
 	protected $primaryKey = 'id';
