@@ -222,7 +222,10 @@
 <!---->
 <!--		<h2>The small framework with powerful features</h2>-->
 
-<!--		<h2>--><?php //echo $units; ?><!--</h2>-->
+		<h2>Englisch</h2>
+		<div><?php echo $result_en; ?></div>
+		<h2>Deutsch</h2>
+		<div><?php echo $result_de; ?></div>
 
 <!--		<h2>--><?php //echo $guild; ?><!--</h2>-->
 <!--		<div>--><?php //echo $members; ?><!--</div>-->
