@@ -2,8 +2,8 @@
 
 use App\Controllers\BaseController;
 use App\Helpers\SwgohHelp;
+use App\Models\CategoryModel;
 use http\Exception;
-use PHPUnit\Util\Json;
 use stdClass;
 
 class SwgohHelpCollector extends BaseController
@@ -26,7 +26,7 @@ class SwgohHelpCollector extends BaseController
 	{
 		$swgoh = new SwgohHelp();
 
-		$this->getCategoryList($swgoh);
+		$data = $this->getCategoryList($swgoh);
 		// $this->getAbilityList($swgoh);
 		// $this->getEquipmentList($swgoh);
 		// $this->getMaterialList($swgoh);
@@ -46,28 +46,35 @@ class SwgohHelpCollector extends BaseController
 		 *
 		 */
 
-		// return view('welcome_message');
+		return view('welcome_message', $data);
 
 	}
 
 	public function getGuildData()
 	{
 		$swgoh = new SwgohHelp();
-		$this->getGuild($swgoh);
-		return view('welcome_message');
+		$data['result_en'] = $this->getGuild($swgoh);
+		$data['result_de'] = '';
+		return view('welcome_message', $data);
 	}
 
 
-	private function getGuild(SwgohHelp $swgoh):void
+	private function getGuild(SwgohHelp $swgoh)
 	{
 		try {
 			$guild = $swgoh->fetchGuild(256163745);
-			$object = json_decode($guild);
+			$result = $guild;
+
+			// $object = json_decode($guild);
+
 			/* ToDo: Save Data to Model and Database */
-			$this->getGuildMember($swgoh, $object);
+			// $this->getGuildMember($swgoh, $object);
 		} catch (Exception $e) {
-			echo $e->getMessage();
+			// echo $e->getMessage();
+			$result = $e->getMessage();
 		}
+
+		return $guild;
 	}
 
 	private function getGuildMember(SwgohHelp $swgoh, $json):void
@@ -86,27 +93,64 @@ class SwgohHelpCollector extends BaseController
 
 	private function getCategoryList(SwgohHelp $swgoh)
 	{
-		// Get CategoryList
 		$match = new StdClass();
 		$match->visible = true;
 		try {
 			$result_en = $swgoh->fetchData('categoryList', 'eng_us', $match);
-			$data['result_en'] = $result_en;
+
+			$list = json_decode($result_en);
+			foreach ($list as $e){
+				$category = new CategoryModel();
+				$category->setId($e->id);
+				$category->setDescKeyEn($e->descKey);
+				if(in_array(1, $e->uiFilterList, false)){
+					$category->setToonFilter(true);
+				}
+				if(in_array(2, $e->uiFilterList, false)){
+					$category->setShipFilter(true);
+				}
+				$category->setUpdated($e->updated);
+
+				$category->save($category);
+
+				// Data validation
+				$checklist .= $category->getDescKeyEn().', ';
+			}
+
+			// $data['result_en'] = $result_en;
+			$data['result_en'] = $checklist;
 			/* ToDo: Save Data to Model and Database */
 		} catch (Exception $e) {
 			echo $e->getMessage();
 			$data['result_en'] = $e->getMessage();
+		} catch (\ReflectionException $e) {
+			$data['result_en'] = $e->getMessage();
 		}
 		try {
 			$result_de = $swgoh->fetchData('categoryList', 'ger_de', $match);
-			$data['result_de'] = $result_de;
+
+			$list = json_decode($result_de, false, 512, JSON_THROW_ON_ERROR | JSON_INVALID_UTF8_IGNORE);
+			foreach ($list as $e){
+				$categoryModel = model('CategoryModel');
+				$category = $categoryModel->find($e->id);
+				$category->setDescKeyDe($e->descKey);
+				$category->update($category);
+
+				// Data validation
+				$checklist .= $category->getDescKeyDe().', ';
+			}
+
+			// $data['result_de'] = $result_de;
+			$data['result_de'] = $checklist;
 			/* ToDo: Add Translations to Model and Database */
 		} catch (Exception $e) {
 			echo $e->getMessage();
 			$data['result_de'] =  $e->getMessage();
+		} catch (\JsonException $e) {
+			$data['result_de'] =  $e->getMessage();
 		}
 
-		return view('welcome_message', $data);
+		return $data;
 	}
 
 	private function getAbilityList(SwgohHelp $swgoh):void

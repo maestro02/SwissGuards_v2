@@ -218,23 +218,14 @@
 	</div>
 
 	<div class="heroe">
-<!--		<h1>Welcome to CodeIgniter --><?//= CodeIgniter\CodeIgniter::CI_VERSION ?><!--</h1>-->
-<!---->
-<!--		<h2>The small framework with powerful features</h2>-->
+		<h1>Welcome to CodeIgniter <?= CodeIgniter\CodeIgniter::CI_VERSION ?></h1>
+
+		<h2>The small framework with powerful features</h2>
 
 		<h2>Englisch</h2>
-		<div><?php echo $result_en; ?></div>
+		<div><?php echo $result_en;?></div>
 		<h2>Deutsch</h2>
 		<div><?php echo $result_de; ?></div>
-
-<!--		<h2>--><?php //echo $guild; ?><!--</h2>-->
-<!--		<div>--><?php //echo $members; ?><!--</div>-->
-
-<!--		<h2>Gilde: --><?php //echo $name; ?><!--</h2>-->
-<!--		<h3>Mitglied: --><?php //echo $roster; ?><!--</h3>-->
-<!--		<div>--><?php //echo print_r($guild); ?><!--</div>-->
-<!---->
-<!--		<h2>--><?php //echo $player; ?><!--</h2>-->
 
 	</div>
 

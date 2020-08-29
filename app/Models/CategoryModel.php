@@ -10,7 +10,8 @@ class CategoryModel extends Model
 	protected string $id;
 	protected string $descKeyEn;
 	protected string $descKeyDe;
-	protected array $filterList;
+	protected bool $toonFilter; // uiFilterList = 1
+	protected bool $shipFilter; // uiFilterList = 2
 	protected int $updated;
 
 	/**
@@ -62,19 +63,35 @@ class CategoryModel extends Model
 	}
 
 	/**
-	 * @return array
+	 * @return bool
 	 */
-	public function getFilterList():array
+	public function isToonFilter():bool
 	{
-		return $this->filterList;
+		return $this->toonFilter;
 	}
 
 	/**
-	 * @param array $filterList
+	 * @param bool $toonFilter
 	 */
-	public function setFilterList(array $filterList):void
+	public function setToonFilter(bool $toonFilter):void
 	{
-		$this->filterList = $filterList;
+		$this->toonFilter = $toonFilter;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isShipFilter():bool
+	{
+		return $this->shipFilter;
+	}
+
+	/**
+	 * @param bool $shipFilter
+	 */
+	public function setShipFilter(bool $shipFilter):void
+	{
+		$this->shipFilter = $shipFilter;
 	}
 
 	/**
