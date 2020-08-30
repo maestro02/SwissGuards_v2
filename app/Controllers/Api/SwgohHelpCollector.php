@@ -71,8 +71,7 @@ class SwgohHelpCollector extends BaseController
 	private function getGuild(SwgohHelp $swgoh):void
 	{
 		try {
-			foreach (json_decode($swgoh->fetchGuild(256163745), true, 512, JSON_THROW_ON_ERROR) as $g) {
-				$result = '';
+			foreach (json_decode($swgoh->fetchGuild($_ENV['helpers.swgohhelp.allycode']), true, 512, JSON_THROW_ON_ERROR) as $g) {
 				$dt = new DateTime();
 				$guild = new GuildModel();
 				$data = [
@@ -128,6 +127,9 @@ class SwgohHelpCollector extends BaseController
 				}
 				$dt = new DateTime();
 				$player = new PlayerModel();
+
+				/* ToDo: Load and save roster of each player */
+
 				$data = [
 					'id' => $p->id,
 					'name' => $p->name,
@@ -398,28 +400,4 @@ class SwgohHelpCollector extends BaseController
 			echo $e->getMessage();
 		}
 	}
-
-	private function callApi(
-		SwgohHelp $swgoh,
-		string $listName,
-		StdClass $projectCriteria = null,
-		StdClass $projectCriteria_de = null,
-		StdClass $match = null
-	):void {
-		try {
-			$result_en = $swgoh->fetchData($listName, 'eng_us', $match, $projectCriteria);
-			/* ToDo: Save Data to Model and Database */
-		} catch (Exception $e) {
-			echo $e->getMessage();
-		}
-
-		try {
-			$result_de = $swgoh->fetchData($listName, 'ger_de', $match, $projectCriteria_de);
-			/* ToDo: Save Data to Model and Database */
-		} catch (Exception $e) {
-			echo $e->getMessage();
-		}
-
-	}
-
 }
