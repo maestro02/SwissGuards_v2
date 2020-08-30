@@ -3,7 +3,12 @@
 use App\Controllers\BaseController;
 use App\Helpers\SwgohHelp;
 use App\Models\CategoryModel;
+use App\Models\GuildModel;
+use App\Models\GuildPlayerModel;
+use App\Models\PlayerModel;
+use DateTime;
 use http\Exception;
+use ReflectionException;
 use stdClass;
 
 class SwgohHelpCollector extends BaseController
@@ -26,7 +31,7 @@ class SwgohHelpCollector extends BaseController
 	{
 		$swgoh = new SwgohHelp();
 
-		$data = $this->getCategoryList($swgoh);
+		$this->getCategoryList($swgoh);
 		// $this->getAbilityList($swgoh);
 		// $this->getEquipmentList($swgoh);
 		// $this->getMaterialList($swgoh);
@@ -46,6 +51,9 @@ class SwgohHelpCollector extends BaseController
 		 *
 		 */
 
+		$data['result_en'] = 'en';
+		$data['result_de'] = 'de';
+
 		return view('welcome_message', $data);
 
 	}
@@ -53,104 +61,152 @@ class SwgohHelpCollector extends BaseController
 	public function getGuildData()
 	{
 		$swgoh = new SwgohHelp();
-		$data['result_en'] = $this->getGuild($swgoh);
-		$data['result_de'] = '';
+		$this->getGuild($swgoh);
+		$data['result_en'] = 'en_done';
+		$data['result_de'] = 'de_done';
 		return view('welcome_message', $data);
 	}
 
 
-	private function getGuild(SwgohHelp $swgoh)
+	private function getGuild(SwgohHelp $swgoh):void
 	{
 		try {
-			$guild = $swgoh->fetchGuild(256163745);
-			$result = $guild;
-
-			// $object = json_decode($guild);
-
-			/* ToDo: Save Data to Model and Database */
-			// $this->getGuildMember($swgoh, $object);
-		} catch (Exception $e) {
-			// echo $e->getMessage();
-			$result = $e->getMessage();
-		}
-
-		return $guild;
-	}
-
-	private function getGuildMember(SwgohHelp $swgoh, $json):void
-	{
-		$members = $json[0]->roster;
-		foreach ($members as $member) {
-			$list .= ', '.$member->allyCode;
-		}
-		try {
-			$result_en = $swgoh->fetchPlayer($list);
-			/* ToDo: Save Data to Model and Database */
-		} catch (Exception $e) {
+			foreach (json_decode($swgoh->fetchGuild(256163745), true, 512, JSON_THROW_ON_ERROR) as $g) {
+				$result = '';
+				$dt = new DateTime();
+				$guild = new GuildModel();
+				$data = [
+					'id' => $g['id'],
+					'memberCount' => $g['members'],
+					'name' => $g['name'],
+					'gp' => $g['gp'],
+					'updated' => $dt->setTimestamp(($g['updated']) / 1000)->format('Y-m-d H:i:s')
+				];
+				if ($guild->find($g['id'])) {
+					$guild->save($data);
+				} else {
+					$guild->insert($data);
+				}
+				$this->getGuildMember($swgoh, $g['roster'], $g['id']);
+			}
+		} catch (\Exception $e) {
 			echo $e->getMessage();
 		}
 	}
 
-	private function getCategoryList(SwgohHelp $swgoh)
+	private function getGuildMember(SwgohHelp $swgoh, $roster, $guildId):void
+	{
+		$list = '';
+		foreach ($roster as $member) {
+			$list .= ', '.$member['allyCode'];
+			$guildMember = new GuildPlayerModel();
+			$data = [
+				'guildId'   =>  $guildId,
+				'playerId'  =>  $member['id'],
+				'guildMemberStatus' =>  $member['guildMemberLevel']
+			];
+			if ($guildMember->where('guildId',$guildId)->find($member['id'])) {
+				try {
+					$guildMember->save($data);
+				} catch (ReflectionException $e) {
+					echo $e->getMessage();
+				}
+			} else {
+				try {
+					$guildMember->insert($data);
+				} catch (ReflectionException $e) {
+					echo $e->getMessage();
+				}
+			}
+		}
+		$list = substr($list, 2);
+		try {
+			foreach (json_decode($swgoh->fetchPlayer($list), false, 512, JSON_THROW_ON_ERROR) as $p) {
+				$stats = array();
+				foreach ($p->stats as $s){
+					$stats[] = $s->value;
+				}
+				$dt = new DateTime();
+				$player = new PlayerModel();
+				$data = [
+					'id' => $p->id,
+					'name' => $p->name,
+					'allyCode' => $p->allyCode,
+					'level' => $p->level,
+					'guildId' => $p->guildRefId,
+					'lastActivity' => $dt->setTimestamp(($p->lastActivity) / 1000)->format('Y-m-d H:i:s'),
+					'gpTotal' => $stats[0],
+					'gpToon' => $stats[1],
+					'gpShip' => $stats[2],
+					'lifetimeChampionshipScore' => $stats[3],
+					'fleetArenaBattlesWon' => $stats[4],
+					'squadArenaBattlesWon' => $stats[5],
+					'totalBattlesWon' => $stats[6],
+					'hardBattlesWon' => $stats[7],
+					'galacticWarBattlesWon' => $stats[8],
+					'guildRaidsWon' => $stats[9],
+					'guildTokensEarned' => $stats[10],
+					'gearDonatedinGuildExchange' => $stats[11],
+					'championshipPromotionsEarned' => $stats[12],
+					'championshipOffensiveBattlesWon' => $stats[13],
+					'championshipSuccessfulBattleDefends' => $stats[14],
+					'championshipBannersEarned' => $stats[15],
+					'championshipFullRoundsCleared' => $stats[16],
+					'championshipUndersizedSquadBattlesWon' => $stats[17],
+					'championshipTerritoriesDefeated' => $stats[18],
+					'updated' => $dt->setTimestamp(($p->updated) / 1000)->format('Y-m-d H:i:s')
+				];
+				if ($player->find($p->id)) {
+					$player->save($data);
+				} else {
+					$player->insert($data);
+				}
+			}
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		} catch (\Exception $e) {
+			echo $e->getMessage();
+		}
+	}
+
+	private function getCategoryList(SwgohHelp $swgoh):void
 	{
 		$match = new StdClass();
 		$match->visible = true;
 		try {
-			$result_en = $swgoh->fetchData('categoryList', 'eng_us', $match);
-
-			$list = json_decode($result_en);
-			foreach ($list as $e){
+			foreach (json_decode($swgoh->fetchData('categoryList', 'eng_us', $match), false, 512,
+				JSON_THROW_ON_ERROR) as $e) {
+				$dt = new DateTime();
 				$category = new CategoryModel();
-				$category->setId($e->id);
-				$category->setDescKeyEn($e->descKey);
-				if(in_array(1, $e->uiFilterList, false)){
-					$category->setToonFilter(true);
+				$data = [
+					'id' => $e->id,
+					'descKeyEn' => $e->descKey,
+					'toonFilter' => in_array(1, $e->uiFilterList, false),
+					'shipFilter' => in_array(2, $e->uiFilterList, false),
+					'updated' => $dt->setTimestamp(($e->updated) / 1000)->format('Y-m-d H:i:s')
+				];
+				if ($category->find($e->id)) {
+					$category->save($data);
+				} else {
+					$category->insert($data);
 				}
-				if(in_array(2, $e->uiFilterList, false)){
-					$category->setShipFilter(true);
-				}
-				$category->setUpdated(date('Y-m-d H:i:s', $e->updated));
-
-				$category->save($category);
-
-				// Data validation
-				$checklist .= $category->getDescKeyEn().', ';
 			}
-
-			// $data['result_en'] = $result_en;
-			$data['result_en'] = $checklist;
-			/* ToDo: Save Data to Model and Database */
+		} catch (\Exception $e) {
+			echo $e->getMessage();
 		} catch (Exception $e) {
 			echo $e->getMessage();
-			$data['result_en'] = $e->getMessage();
-		} catch (\ReflectionException $e) {
-			$data['result_en'] = $e->getMessage();
 		}
 		try {
-			$result_de = $swgoh->fetchData('categoryList', 'ger_de', $match);
-
-			$list = json_decode($result_de, false, 512, JSON_THROW_ON_ERROR | JSON_INVALID_UTF8_IGNORE);
-			foreach ($list as $e){
-				$categoryModel = model('CategoryModel');
-				$category = $categoryModel->find($e->id);
-				$category->setDescKeyDe($e->descKey);
-				$category->update($category);
-
-				// Data validation
-				$checklist .= $category->getDescKeyDe().', ';
+			foreach (json_decode($swgoh->fetchData('categoryList', 'ger_de', $match), false, 512,
+				JSON_THROW_ON_ERROR) as $e) {
+				$categoryModel = new CategoryModel();
+				$categoryModel->whereIn('id', [$e->id])->set(['descKeyDe' => $e->descKey])->update();
 			}
-
-			// $data['result_de'] = $result_de;
-			$data['result_de'] = $checklist;
-			/* ToDo: Add Translations to Model and Database */
+		} catch (\Exception $e) {
+			echo $e->getMessage();
 		} catch (Exception $e) {
 			echo $e->getMessage();
-			$data['result_de'] =  $e->getMessage();
-		} catch (\JsonException $e) {
-			$data['result_de'] =  $e->getMessage();
 		}
-
-		return $data;
 	}
 
 	private function getAbilityList(SwgohHelp $swgoh):void
@@ -343,8 +399,13 @@ class SwgohHelpCollector extends BaseController
 		}
 	}
 
-	private function callApi(SwgohHelp $swgoh, string $listName, StdClass $projectCriteria = null, StdClass $projectCriteria_de = null, StdClass $match = null):void
-	{
+	private function callApi(
+		SwgohHelp $swgoh,
+		string $listName,
+		StdClass $projectCriteria = null,
+		StdClass $projectCriteria_de = null,
+		StdClass $match = null
+	):void {
 		try {
 			$result_en = $swgoh->fetchData($listName, 'eng_us', $match, $projectCriteria);
 			/* ToDo: Save Data to Model and Database */
