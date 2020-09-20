@@ -41,7 +41,7 @@ $routes->group('api', function($routes){
 	});
 	$routes->group('gg', function($routes)
 	{
-		$routes->add('update', 'Api\SwgohGgCollector::getGuildData');
+		$routes->add('base', 'Api\SwgohGgCollector::getImages');
 		$routes->add('list', 'Api\SwgohGgCollector::list');
 	});
 });

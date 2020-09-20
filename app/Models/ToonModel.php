@@ -17,6 +17,7 @@ class ToonModel extends Model
 		'maxRarity',
 		'forceAlignment',
 		'combatType',
-		'updated'
+		'updated',
+		'ggImg'
 	];
 }
