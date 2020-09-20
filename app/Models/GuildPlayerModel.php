@@ -6,6 +6,11 @@ class GuildPlayerModel extends Model
 {
 	protected $table = 'guildPlayer';
 	protected $primaryKey = 'playerId';
-	protected $allowedFields = ['guildId', 'playerId', 'guildMemberStatus'];
+
+	protected $allowedFields = [
+		'guildId',
+		'playerId',
+		'guildMemberStatus'
+	];
 
 }

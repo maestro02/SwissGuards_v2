@@ -6,6 +6,13 @@ class CategoryModel extends Model
 {
 	protected $table = 'category';
 	protected $primaryKey = 'id';
-	protected $allowedFields = ['id', 'descKeyEn', 'descKeyDe', 'toonFilter', 'shipFilter', 'updated'];
+	protected $allowedFields = [
+		'id',
+		'descKeyEn',
+		'descKeyDe',
+		'toonFilter',
+		'shipFilter',
+		'updated'
+	];
 
 }

@@ -7,6 +7,13 @@ class GuildModel extends Model
 {
 	protected $table = 'guild';
 	protected $primaryKey = 'id';
-	protected $allowedFields = ['id', 'memberCount', 'name', 'gp', 'updated'];
+
+	protected $allowedFields = [
+		'id',
+		'memberCount',
+		'name',
+		'gp',
+		'updated'
+	];
 
 }
