@@ -85,14 +85,26 @@ class SwgohGgCollector extends BaseController
 		foreach ($model->asObject()->findAll() as $ele) {
 			$imagePath = $this->assetsDirectory.$localFilePath.$ele->id.$this->img;
 			$url = $type.$ele->id;
-			if (!file_exists($imagePath) && file_exists($url)) {
-				$file = file_get_contents($url);
-				if ($file) {
-					file_put_contents($imagePath, $file);
-					try {
-						$model->update($ele->id, ['image' => $imagePath]);
-					} catch (ReflectionException $e) {
-						echo $e->getMessage();
+			if (!file_exists($imagePath)) {
+				if ($localFilePath === 'equipment/') {
+					$file = file_get_contents($url);
+					if ($file) {
+						file_put_contents($imagePath, $file);
+						try {
+							$model->update($ele->id, ['image' => $imagePath]);
+						} catch (ReflectionException $e) {
+							echo $e->getMessage();
+						}
+					}
+				} elseif (file_exists($url)) {
+					$file = file_get_contents($url);
+					if ($file) {
+						file_put_contents($imagePath, $file);
+						try {
+							$model->update($ele->id, ['image' => $imagePath]);
+						} catch (ReflectionException $e) {
+							echo $e->getMessage();
+						}
 					}
 				}
 			}

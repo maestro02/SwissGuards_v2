@@ -36,14 +36,14 @@ class SwgohHelpCollector extends BaseController
 	{
 		$swgoh = new SwgohHelp();
 		$swgoh->login();
-		return view('welcome_message');
+		return view('modtest');
 	}
 
 	public function list()
 	{
 		$swgoh = new SwgohHelp();
 		$swgoh->login();
-		return view('welcome_message');
+		return view('modtest');
 	}
 
 	public function getBaseData()
