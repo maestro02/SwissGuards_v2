@@ -1,13 +1,14 @@
 <?php namespace Config;
 
 // Create a new instance of our RouteCollection class.
+use CodeIgniter\Router\RouteCollection;
+
 $routes = Services::routes();
 
 // Load the system's routing file first, so that the app and ENVIRONMENT
 // can override as needed.
-if (file_exists(SYSTEMPATH . 'Config/Routes.php'))
-{
-	require SYSTEMPATH . 'Config/Routes.php';
+if (file_exists(SYSTEMPATH.'Config/Routes.php')) {
+	require SYSTEMPATH.'Config/Routes.php';
 }
 
 /**
@@ -32,15 +33,16 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
-$routes->group('api', function($routes){
-	$routes->group('help', function($routes)
-	{
+$routes->add('toons', 'Units\UnitList::toonList');
+$routes->add('ships', 'Units\UnitList::shipList');
+
+$routes->group('api', function ($routes) {
+	$routes->group('help', function ($routes) {
 		$routes->add('base', 'Api\SwgohHelpCollector::getBaseData');
 		$routes->add('guild', 'Api\SwgohHelpCollector::getGuildData');
 		$routes->add('list', 'Api\SwgohHelpCollector::list');
 	});
-	$routes->group('gg', function($routes)
-	{
+	$routes->group('gg', function ($routes) {
 		$routes->add('base', 'Api\SwgohGgCollector::getImages');
 		$routes->add('list', 'Api\SwgohGgCollector::list');
 	});

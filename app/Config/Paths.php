@@ -48,7 +48,8 @@ class Paths
 	 * for maximum security, keeping it out of the app and/or
 	 * system directories.
 	 */
-	public $writableDirectory = __DIR__ . '/../../writable';
+	public $writableDirectory = __DIR__.'/../../writable';
+	public $publicDirectory = __DIR__.'/../../public';
 
 	/*
 	 * ---------------------------------------------------------------

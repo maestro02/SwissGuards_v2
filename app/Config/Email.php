@@ -33,7 +33,7 @@ class Email extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $protocol = 'mail';
+	public $protocol;
 
 	/**
 	 * The server path to Sendmail.
@@ -68,7 +68,7 @@ class Email extends BaseConfig
 	 *
 	 * @var integer
 	 */
-	public $SMTPPort = 25;
+	public $SMTPPort;
 
 	/**
 	 * SMTP Timeout (in seconds)
@@ -89,14 +89,14 @@ class Email extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $SMTPCrypto = 'tls';
+	public $SMTPCrypto;
 
 	/**
 	 * Enable word-wrap
 	 *
 	 * @var boolean
 	 */
-	public $wordWrap = true;
+	public $wordWrap;
 
 	/**
 	 * Character count to wrap at
@@ -110,7 +110,7 @@ class Email extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $mailType = 'text';
+	public $mailType;
 
 	/**
 	 * Character set (utf-8, iso-8859-1, etc.)
