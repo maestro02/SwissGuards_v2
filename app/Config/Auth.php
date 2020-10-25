@@ -7,7 +7,7 @@ use Myth\Auth\Authentication\Passwords\PwnedValidator;
 
 class Auth extends \Myth\Auth\Config\Auth
 {
-	public $defaultUserGroup = 'guest';
+	public $defaultUserGroup = 0;
 	public $views = [
 		'login' => 'Myth\Auth\Views\login',
 		'register' => 'Views/Auth/register',
@@ -26,7 +26,7 @@ class Auth extends \Myth\Auth\Config\Auth
 // - PASSWORD_DEFAULT (default)
 // - PASSWORD_BCRYPT
 	public $hashAlgorithm = PASSWORD_BCRYPT;
-	public $hashCost = 20;
+	public $hashCost = 10; // Default = 10
 	public $minimumPasswordLength = 8;
 	public $passwordValidators = [
 		CompositionValidator::class,

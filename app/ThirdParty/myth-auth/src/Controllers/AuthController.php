@@ -1,6 +1,8 @@
 <?php namespace Myth\Auth\Controllers;
 
-use Config\Email;
+use App\Models\GuildPlayerModel;
+use App\Models\PlayerModel;
+use Config\Auth;
 use CodeIgniter\Controller;
 use Myth\Auth\Entities\User;
 
@@ -41,7 +43,7 @@ class AuthController extends Controller
         // No need to show a login form if the user
         // is already logged in.
         if ($this->auth->check()) {
-            $redirectURL = session('redirect_url') ?? '/';
+            $redirectURL = session('redirect_url') ?? 'login';
             unset($_SESSION['redirect_url']);
 
             return redirect()->to($redirectURL);
@@ -68,7 +70,7 @@ class AuthController extends Controller
             'login' => 'required',
             'password' => 'required',
         ];
-        if ($this->config->validFields == ['email']) {
+        if ($this->config->validFields === ['email']) {
             $rules['login'] .= '|valid_email';
         }
 
@@ -93,7 +95,7 @@ class AuthController extends Controller
             return redirect()->to(route_to('reset-password').'?token='.$this->auth->user()->reset_hash)->withCookies();
         }
 
-        $redirectURL = session('redirect_url') ?? '/';
+        $redirectURL = session('home') ?? base_url();
         unset($_SESSION['redirect_url']);
 
         return redirect()->to($redirectURL)->withCookies()->with('message', lang('Auth.loginSuccess'));
@@ -112,7 +114,7 @@ class AuthController extends Controller
             $this->auth->logout();
         }
 
-        return redirect()->to('/');
+        return redirect()->to(base_url());
     }
 
     /**
@@ -154,6 +156,8 @@ class AuthController extends Controller
         $rules = [
             'username' => 'required|alpha_numeric_space|min_length[3]|is_unique[users.username]',
             'email' => 'required|valid_email|is_unique[users.email]',
+            'allyCode' => 'required',
+            'discordId' => 'required',
             'password' => 'required|strong_password',
             'pass_confirm' => 'required|matches[password]',
         ];
@@ -169,7 +173,14 @@ class AuthController extends Controller
         $this->config->requireActivation !== false ? $user->generateActivateHash() : $user->activate();
 
         // Ensure default group gets assigned if set
-        if (!empty($this->config->defaultUserGroup)) {
+
+        $p = new PlayerModel();
+        $player = $p->asObject()->where('allyCode', $this->request->getPost('allyCode'))->first();
+        if ($player) {
+            $gp = new GuildPlayerModel();
+            $status = $gp->asObject()->where('playerId', $player->id)->first();
+            $users = $users->withGroup($status->guildMemberStatus);
+        } elseif (!empty($this->config->defaultUserGroup)) {
             $users = $users->withGroup($this->config->defaultUserGroup);
         }
 

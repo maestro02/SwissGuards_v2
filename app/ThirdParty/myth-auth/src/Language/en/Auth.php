@@ -31,7 +31,7 @@ return [
     'invalidPassword' => 'Unable to log you in. Please check your password.',
 
     // Forgotten Passwords
-    'forgotDisabled' => 'Resseting password option has been disabled.',
+    'forgotDisabled' => 'Resetting password option has been disabled.',
     'forgotNoUser' => 'Unable to locate a user with that email.',
     'forgotSubject' => 'Password Reset Instructions',
     'resetSuccess' => 'Your password has been successfully changed. Please login with the new password.',

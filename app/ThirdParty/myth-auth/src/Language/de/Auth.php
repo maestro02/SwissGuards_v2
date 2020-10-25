@@ -31,7 +31,7 @@ return [
     'invalidPassword' => 'Unable to log you in. Please check your password.',
 
     // Forgotten Passwords
-    'forgotDisabled' => 'Resseting password option has been disabled.',
+    'forgotDisabled' => 'Resetting password option has been disabled.',
     'forgotNoUser' => 'Unable to locate a user with that email.',
     'forgotSubject' => 'Password Reset Instructions',
     'resetSuccess' => 'Your password has been successfully changed. Please login with the new password.',
@@ -86,7 +86,7 @@ return [
     'register' => 'Registrieren',
     'signIn' => 'Anmelden',
     'alreadyRegistered' => 'Bereits registriert?',
-    'weNeverShare' => 'Die E-Mail-Adresse wird niemals weitergegeben.',
+    'weNeverShare' => 'Deine Daten wird niemals weitergegeben.',
     'resetYourPassword' => 'Passwort zurücksetzen',
     'enterCodeEmailPassword' => 'Gib den per E-Mail erhaltenen Code, deine E-Mail-Adresse und dein neues Passwort ein.',
     'token' => 'Token',

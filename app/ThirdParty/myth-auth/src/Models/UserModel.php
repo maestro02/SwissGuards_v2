@@ -35,10 +35,10 @@ class UserModel extends Model
     protected $validationRules = [
         'email' => 'required|valid_email|is_unique[users.email,id,{id}]',
         'username' => 'required|alpha_numeric_punct|min_length[3]|is_unique[users.username,id,{id}]',
-        'allyCode' => 'required|is_unique[users.allyCode]|matches[player.allyCode]',
-        'discordId' => 'required',
         'password_hash' => 'required',
     ];
+// 'allyCode' => 'required',
+// 'discordId' => 'required',
     protected $validationMessages = [];
     protected $skipValidation = false;
 
@@ -101,7 +101,7 @@ class UserModel extends Model
      */
     public function withGroup(string $groupName)
     {
-        $group = $this->db->table('auth_groups')->where('name', $groupName)->get()->getFirstRow();
+        $group = $this->db->table('auth_groups')->where('id', $groupName)->get()->getFirstRow();
 
         $this->assignGroup = $group->id;
 

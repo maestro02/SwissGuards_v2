@@ -31,11 +31,17 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Home::index', ['as' => 'home']);
 
 $routes->add('toons', 'Units\UnitList::toonList');
 $routes->add('ships', 'Units\UnitList::shipList');
 
+
+/**
+ * --------------------------------------------------------------------
+ * API interface
+ * --------------------------------------------------------------------
+ **/
 $routes->group('api', function ($routes) {
 	$routes->group('help', function ($routes) {
 		$routes->add('base', 'Api\SwgohHelpCollector::getBaseData');
@@ -48,9 +54,11 @@ $routes->group('api', function ($routes) {
 	});
 });
 
-/*
+/**
+ * --------------------------------------------------------------------
  * Myth:Auth routes file.
- */
+ * --------------------------------------------------------------------
+ **/
 $routes->group('', ['namespace' => 'Myth\Auth\Controllers'], function ($routes) {
 	// Login/out
 	$routes->get('login', 'AuthController::login', ['as' => 'login']);
