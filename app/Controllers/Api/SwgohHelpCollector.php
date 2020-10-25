@@ -26,7 +26,6 @@ use App\Models\ToonModel;
 use App\Models\ToonSkillModel;
 use DateTime;
 use http\Exception;
-use JsonException;
 use ReflectionException;
 use stdClass;
 
@@ -36,11 +35,13 @@ class SwgohHelpCollector extends BaseController
 	{
 		$swgoh = new SwgohHelp();
 		$swgoh->login();
+		/* ToDo: Design and View incl. action list */
 		return view('modtest');
 	}
 
 	public function list()
 	{
+		/* ToDo: Design and View incl. action list */
 		$swgoh = new SwgohHelp();
 		$swgoh->login();
 		return view('modtest');
@@ -48,6 +49,7 @@ class SwgohHelpCollector extends BaseController
 
 	public function getBaseData()
 	{
+		/* ToDo: CronJob to update data automatically and add option to index list for manual updates (for each method). */
 		$data[] = [];
 		$swgoh = new SwgohHelp();
 		// $this->getCategoryList($swgoh);
@@ -86,8 +88,7 @@ class SwgohHelpCollector extends BaseController
 	{
 		$swgoh = new SwgohHelp();
 		try {
-			foreach (json_decode($swgoh->fetchGuild($_ENV['helpers.swgohhelp.allycode']), true, 512,
-				JSON_THROW_ON_ERROR) as $g) {
+			foreach (json_decode($swgoh->fetchGuild($_ENV['helpers.swgohhelp.allycode']), true, 512) as $g) {
 				$dt = new DateTime();
 				$guild = new GuildModel();
 				$data = [
@@ -104,7 +105,7 @@ class SwgohHelpCollector extends BaseController
 				}
 				$this->getGuildMember($swgoh, $g['roster'], $g['id']);
 			}
-		} catch (\Exception | ReflectionException | JsonException $e) {
+		} catch (\Exception $e) {
 			echo $e->getMessage();
 		}
 	}
@@ -158,7 +159,7 @@ class SwgohHelpCollector extends BaseController
 		try {
 			$dt = new DateTime();
 			$player = new PlayerModel();
-			foreach (json_decode($swgoh->fetchPlayer(implode(',', $idList)), false, 512, JSON_THROW_ON_ERROR) as $p) {
+			foreach (json_decode($swgoh->fetchPlayer(implode(',', $idList)), false, 512) as $p) {
 				$stats = [];
 				foreach ($p->stats as $s) {
 					$stats[] = $s->value;
@@ -201,7 +202,7 @@ class SwgohHelpCollector extends BaseController
 					$player->insert($data);
 				}
 			}
-		} catch (Exception | ReflectionException | JsonException $e) {
+		} catch (Exception | ReflectionException $e) {
 			echo $e->getMessage();
 		}
 	}
@@ -221,8 +222,7 @@ class SwgohHelpCollector extends BaseController
 		$category = new CategoryModel();
 		$idList[] = [];
 		try {
-			foreach (json_decode($swgoh->fetchData('categoryList', 'eng_us', $match), false, 512,
-				JSON_THROW_ON_ERROR) as $item) {
+			foreach (json_decode($swgoh->fetchData('categoryList', 'eng_us', $match), false, 512) as $item) {
 
 				$dt = new DateTime();
 				$idList[] = $item->id;
@@ -239,15 +239,14 @@ class SwgohHelpCollector extends BaseController
 					$category->insert($data);
 				}
 			}
-		} catch (Exception | ReflectionException | JsonException $e) {
+		} catch (Exception | ReflectionException $e) {
 			echo $e->getMessage();
 		}
 		try {
-			foreach (json_decode($swgoh->fetchData('categoryList', 'ger_de', $match), false, 512,
-				JSON_THROW_ON_ERROR) as $item) {
+			foreach (json_decode($swgoh->fetchData('categoryList', 'ger_de', $match), false, 512) as $item) {
 				$category->where('id', $item->id)->set(['descKeyDe' => $item->descKey])->update();
 			}
-		} catch (Exception | JsonException $e) {
+		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
 		foreach ($category->findColumn('id') as $dbItem) {
@@ -279,8 +278,8 @@ class SwgohHelpCollector extends BaseController
 		$projectCriteria->ultimateChargeRequired = 1;
 		$projectCriteria->updated = 1;
 		try {
-			foreach (json_decode($swgoh->fetchData('abilityList', 'eng_us', null, $projectCriteria), false, 512,
-				JSON_THROW_ON_ERROR) as $item) {
+			foreach (json_decode($swgoh->fetchData('abilityList', 'eng_us', null, $projectCriteria), false,
+				512) as $item) {
 				$dt = new DateTime();
 				$data = [
 					'id' => $item->id,
@@ -316,7 +315,7 @@ class SwgohHelpCollector extends BaseController
 					}
 				}
 			}
-		} catch (Exception | ReflectionException | JsonException $e) {
+		} catch (Exception | ReflectionException $e) {
 			echo $e->getMessage();
 		}
 	}
@@ -339,8 +338,8 @@ class SwgohHelpCollector extends BaseController
 		$projectCriteria->descKey = 1;
 		$projectCriteria->tierList = 1;
 		try {
-			foreach (json_decode($swgoh->fetchData('abilityList', 'ger_de', null, $projectCriteria), false, 512,
-				JSON_THROW_ON_ERROR) as $item) {
+			foreach (json_decode($swgoh->fetchData('abilityList', 'ger_de', null, $projectCriteria), false,
+				512) as $item) {
 				$data = [
 					'id' => $item->id,
 					'nameKeyDe' => $item->nameKey,
@@ -361,7 +360,7 @@ class SwgohHelpCollector extends BaseController
 					}
 				}
 			}
-		} catch (Exception | ReflectionException | JsonException $e) {
+		} catch (Exception | ReflectionException $e) {
 			echo $e->getMessage();
 		}
 	}
@@ -393,8 +392,8 @@ class SwgohHelpCollector extends BaseController
 		$projectCriteria->requiredRarity = 1;
 		$projectCriteria->updated = 1;
 		try {
-			foreach (json_decode($swgoh->fetchData('equipmentList', 'eng_us', null, $projectCriteria), false, 512,
-				JSON_THROW_ON_ERROR) as $item) {
+			foreach (json_decode($swgoh->fetchData('equipmentList', 'eng_us', null, $projectCriteria), false,
+				512) as $item) {
 				$dt = new DateTime();
 				$data = [
 					'id' => $item->id,
@@ -424,18 +423,18 @@ class SwgohHelpCollector extends BaseController
 					$this->setMission($item->actionLinkLookupList, 'event', 'equipmentMission', $item->id);
 				}
 			}
-		} catch (Exception | JsonException | ReflectionException $e) {
+		} catch (Exception | ReflectionException $e) {
 			echo $e->getMessage();
 		}
 		$projectCriteria_de = new StdClass();
 		$projectCriteria_de->id = 1;
 		$projectCriteria_de->nameKey = 1;
 		try {
-			foreach (json_decode($swgoh->fetchData('equipmentList', 'ger_de', null, $projectCriteria), false, 512,
-				JSON_THROW_ON_ERROR) as $item) {
+			foreach (json_decode($swgoh->fetchData('equipmentList', 'ger_de', null, $projectCriteria), false,
+				512) as $item) {
 				$equipment->where('id', $item->id)->set(['nameKeyDe' => $item->nameKey])->update();
 			}
-		} catch (Exception | JsonException $e) {
+		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
 	}
@@ -465,8 +464,8 @@ class SwgohHelpCollector extends BaseController
 		$projectCriteria->raidLookupList = 1;
 		$projectCriteria->updated = 1;
 		try {
-			foreach (json_decode($swgoh->fetchData('materialList', 'eng_us', null, $projectCriteria), false, 512,
-				JSON_THROW_ON_ERROR) as $item) {
+			foreach (json_decode($swgoh->fetchData('materialList', 'eng_us', null, $projectCriteria), false,
+				512) as $item) {
 				$dt = new DateTime();
 				$data = [
 					'id' => $item->id,
@@ -494,7 +493,7 @@ class SwgohHelpCollector extends BaseController
 					$this->setMission($item->raidLookupList, 'raid', 'materialMission', $item->id);
 				}
 			}
-		} catch (Exception | JsonException | ReflectionException $e) {
+		} catch (Exception | ReflectionException $e) {
 			echo $e->getMessage();
 		}
 
@@ -503,15 +502,15 @@ class SwgohHelpCollector extends BaseController
 		$projectCriteria_de->nameKey = 1;
 		$projectCriteria_de->descKey = 1;
 		try {
-			foreach (json_decode($swgoh->fetchData('materialList', 'ger_de', null, $projectCriteria), false, 512,
-				JSON_THROW_ON_ERROR) as $item) {
+			foreach (json_decode($swgoh->fetchData('materialList', 'ger_de', null, $projectCriteria), false,
+				512) as $item) {
 				$dataDe = [
 					'nameKeyDe' => $item->nameKey,
 					'descKeyDe' => $item->descKey,
 				];
 				$material->where('id', $item->id)->set($dataDe)->update();
 			}
-		} catch (Exception | JsonException $e) {
+		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
 	}
@@ -535,8 +534,8 @@ class SwgohHelpCollector extends BaseController
 		$projectCriteria->updated = 1;
 
 		try {
-			foreach (json_decode($swgoh->fetchData('playerTitleList', 'eng_us', null, $projectCriteria), false, 512,
-				JSON_THROW_ON_ERROR) as $item) {
+			foreach (json_decode($swgoh->fetchData('playerTitleList', 'eng_us', null, $projectCriteria), false,
+				512) as $item) {
 				$dt = new DateTime();
 				$idList[] = $item->id;
 				$data = [
@@ -552,12 +551,12 @@ class SwgohHelpCollector extends BaseController
 					$title->insert($data);
 				}
 			}
-		} catch (Exception | ReflectionException | JsonException $e) {
+		} catch (Exception | ReflectionException $e) {
 			echo $e->getMessage();
 		}
 		try {
-			foreach (json_decode($swgoh->fetchData('playerTitleList', 'ger_de', null, $projectCriteria), false, 512,
-				JSON_THROW_ON_ERROR) as $item) {
+			foreach (json_decode($swgoh->fetchData('playerTitleList', 'ger_de', null, $projectCriteria), false,
+				512) as $item) {
 				$dataDe = [
 					'nameKeyDe' => $item->nameKey,
 					'descKeyDe' => $item->descKey,
@@ -565,7 +564,7 @@ class SwgohHelpCollector extends BaseController
 				];
 				$title->where('id', $item->id)->set($dataDe)->update();
 			}
-		} catch (Exception | JsonException $e) {
+		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
 	}
@@ -592,8 +591,8 @@ class SwgohHelpCollector extends BaseController
 		$projectCriteria->type = 1;
 		$projectCriteria->updated = 1;
 		try {
-			foreach (json_decode($swgoh->fetchData('recipeList', 'eng_us', null, $projectCriteria), false, 512,
-				JSON_THROW_ON_ERROR) as $item) {
+			foreach (json_decode($swgoh->fetchData('recipeList', 'eng_us', null, $projectCriteria), false,
+				512) as $item) {
 				$dt = new DateTime();
 				$data = [
 					'id' => $item->id,
@@ -632,18 +631,18 @@ class SwgohHelpCollector extends BaseController
 					}
 				}
 			}
-		} catch (Exception | ReflectionException | JsonException $e) {
+		} catch (Exception | ReflectionException $e) {
 			echo $e->getMessage();
 		}
 		$projectCriteria_de = new StdClass();
 		$projectCriteria_de->id = 1;
 		$projectCriteria_de->descKey = 1;
 		try {
-			foreach (json_decode($swgoh->fetchData('recipeList', 'ger_de', null, $projectCriteria), false, 512,
-				JSON_THROW_ON_ERROR) as $item) {
+			foreach (json_decode($swgoh->fetchData('recipeList', 'ger_de', null, $projectCriteria), false,
+				512) as $item) {
 				$recipe->where('id', $item->id)->set(['descKeyDe' => $item->descKey])->update();
 			}
-		} catch (Exception | JsonException $e) {
+		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
 	}
@@ -670,8 +669,8 @@ class SwgohHelpCollector extends BaseController
 		$projectCriteria->isZeta = 1;
 		$projectCriteria->updated = 1;
 		try {
-			foreach (json_decode($swgoh->fetchData('skillList', 'eng_us', null, $projectCriteria), false, 512,
-				JSON_THROW_ON_ERROR) as $item) {
+			foreach (json_decode($swgoh->fetchData('skillList', 'eng_us', null, $projectCriteria), false,
+				512) as $item) {
 				$dt = new DateTime();
 				$data = [
 					'id' => $item->id,
@@ -709,18 +708,18 @@ class SwgohHelpCollector extends BaseController
 					}
 				}
 			}
-		} catch (Exception | ReflectionException | JsonException $e) {
+		} catch (Exception | ReflectionException $e) {
 			echo $e->getMessage();
 		}
 		$projectCriteria_de = new StdClass();
 		$projectCriteria_de->id = 1;
 		$projectCriteria_de->nameKey = 1;
 		try {
-			foreach (json_decode($swgoh->fetchData('skillList', 'ger_de', null, $projectCriteria), false, 512,
-				JSON_THROW_ON_ERROR) as $item) {
+			foreach (json_decode($swgoh->fetchData('skillList', 'ger_de', null, $projectCriteria), false,
+				512) as $item) {
 				$skill->where('id', $item->id)->set(['nameKeyDe' => $item->nameKey])->update();
 			}
-		} catch (Exception | JsonException $e) {
+		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
 	}
@@ -760,8 +759,8 @@ class SwgohHelpCollector extends BaseController
 		$projectCriteria->crewList = 1;
 		$projectCriteria->updated = 1;
 		try {
-			foreach (json_decode($swgoh->fetchData('unitsList', 'eng_us', $match, $projectCriteria), false, 512,
-				JSON_THROW_ON_ERROR) as $item) {
+			foreach (json_decode($swgoh->fetchData('unitsList', 'eng_us', $match, $projectCriteria), false,
+				512) as $item) {
 				$dt = new DateTime();
 				$data = [
 					'baseId' => $item->baseId,
@@ -836,7 +835,7 @@ class SwgohHelpCollector extends BaseController
 				/* ToDo: ModRecommendationList */
 				/* ToDo: RelicDefinition */
 			}
-		} catch (Exception | ReflectionException | JsonException $e) {
+		} catch (Exception | ReflectionException $e) {
 			echo $e->getMessage();
 		}
 		$projectCriteria_de = new StdClass();
@@ -844,15 +843,15 @@ class SwgohHelpCollector extends BaseController
 		$projectCriteria_de->nameKey = 1;
 		$projectCriteria_de->descKey = 1;
 		try {
-			foreach (json_decode($swgoh->fetchData('unitsList', 'ger_de', $match, $projectCriteria_de), false, 512,
-				JSON_THROW_ON_ERROR) as $item) {
+			foreach (json_decode($swgoh->fetchData('unitsList', 'ger_de', $match, $projectCriteria_de), false,
+				512) as $item) {
 				$toonData = [
 					'nameKeyDe' => $item->nameKey,
 					'descKeyDe' => $item->descKey
 				];
 				$toon->update($item->baseId, $toonData);
 			}
-		} catch (Exception | JsonException | ReflectionException $e) {
+		} catch (Exception | ReflectionException $e) {
 			echo $e->getMessage();
 		}
 	}

@@ -85,3 +85,14 @@ body {
 .embed {
     overflow: auto;
 }
+
+.char-list-name {
+    display: block;
+}
+
+.char-portrait-list-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: black;
+}

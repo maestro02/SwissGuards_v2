@@ -1,13 +1,5 @@
 <?php namespace Assets; ?>
-<!doctype html>
-<html lang="en" >
-<head >
-	<title ></title >
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-	      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" >
-</head >
-<body >
+<?php echo view('partials/UnitList_Head'); ?>
 <table id="chrlist" class="table table-striped table-hover" style="width: 100%;" >
 	<thead >
 	<tr >
@@ -22,9 +14,12 @@
 		if ($t->image) {
 			?>
 			<tr >
-				<td class="name" ><img src="<?php echo base_url().'/../assets/units/'.$t->baseId.'.png'; ?>"
-				                       alt="<?php echo $t->nameKeyDe; ?>" width="30" height="30" /><span
-							class="name" > <?php echo $t->nameKeyDe; ?></span ></a></td >
+				<td class="name char-list-name" ><img class="char-portrait-list-img"
+				                                      src="/assets/units/<?php echo $t->baseId.'.png'; ?>"
+				                                      alt="<?php echo $t->nameKeyDe; ?>" width="30" height="30" />
+					<div
+							class="name" > <?php echo $t->nameKeyDe; ?></div >
+					</a></td >
 				<td class="abbreviation" ><?php echo $t->descKeyDe; ?></td >
 				<td class="side" ><?php echo $t->forceAlignment; ?></td >
 			</tr >

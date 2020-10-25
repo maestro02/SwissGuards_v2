@@ -9,7 +9,8 @@
 		"codeigniter4/translations": "^4",
 		"ext-json": "*",
 		"myth/auth": "dev-develop",
-		"php": ">=7.2"
+		"php": ">=7.2",
+		"ext-curl": "*"
 	},
 	"require-dev": {
 		"fzaninotto/faker": "v1.9.1",

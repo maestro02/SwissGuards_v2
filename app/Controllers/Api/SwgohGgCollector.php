@@ -9,15 +9,14 @@ use ReflectionException;
 
 class SwgohGgCollector extends BaseController
 {
-	private string $ggUrl = 'https://swgoh.gg';
-	private string $apiCharacters = 'https://swgoh.gg/api/characters/';
-	private string $apiShips = 'https://swgoh.gg/api/ships/';
+	private $ggUrl = 'https://swgoh.gg';
+	private $apiCharacters = 'https://swgoh.gg/api/characters/';
+	private $apiShips = 'https://swgoh.gg/api/ships/';
 
-	private string $material = 'https://swgoh.gg/game-asset/m/';
-	private string $skill = 'https://swgoh.gg/game-asset/a/';
-	private string $equipment = 'https://swgoh.gg/game-asset/g/';
-	private string $img = '.png';
-	private string $assetsDirectory = __DIR__.'/../../../public/assets/';
+	private $material = 'https://swgoh.gg/game-asset/m/';
+	private $skill = 'https://swgoh.gg/game-asset/a/';
+	private $equipment = 'https://swgoh.gg/game-asset/g/';
+	private $img = '.png';
 
 	public function getImages()
 	{
@@ -61,13 +60,12 @@ class SwgohGgCollector extends BaseController
 
 	private function getUnitImages():void
 	{
-		$unitFilePath = 'units/';
 		$toon = new ToonModel();
 		$units = $toon->asObject()->findAll();
 
 		foreach ($units as $u) {
 			if ($u->ggImg) {
-				$imagePath = $this->assetsDirectory.$unitFilePath.$u->baseId.$this->img;
+				$imagePath = '/assets/units/'.$u->baseId.$this->img;
 				if (!file_exists($imagePath)) {
 					file_put_contents($imagePath, file_get_contents($u->ggImg));
 					try {
@@ -83,7 +81,7 @@ class SwgohGgCollector extends BaseController
 	private function getOtherImages($localFilePath, $model, $type):void
 	{
 		foreach ($model->asObject()->findAll() as $ele) {
-			$imagePath = $this->assetsDirectory.$localFilePath.$ele->id.$this->img;
+			$imagePath = '/assets/'.$localFilePath.$ele->id.$this->img;
 			$url = $type.$ele->id;
 			if (!file_exists($imagePath)) {
 				if ($localFilePath === 'equipment/') {
