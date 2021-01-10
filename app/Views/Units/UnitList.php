@@ -1,5 +1,9 @@
-<?php namespace Assets; ?>
-<?php echo view('partials/UnitList_Head'); ?>
+<?php
+namespace Assets;
+echo view('partials/UnitList_Head');
+$langName = 'nameKey'.ucfirst($_SESSION['lang']);
+$langDesc = 'descKey'.ucfirst($_SESSION['lang']);
+?>
 <table id="chrlist" class="table table-striped table-hover" style="width: 100%;" >
 	<thead >
 	<tr >
@@ -16,12 +20,15 @@
 			<tr >
 				<td class="name char-list-name" ><img class="char-portrait-list-img"
 				                                      src="/assets/units/<?php echo $t->baseId.'.png'; ?>"
-				                                      alt="<?php echo $t->nameKeyDe; ?>" width="30" height="30" />
+				                                      alt="<?php echo $t->$langName; ?>" width="30" height="30" />
 					<div
-							class="name" > <?php echo $t->nameKeyDe; ?></div >
+							class="name" > <?php echo $t->$langName; ?></div >
 					</a></td >
-				<td class="abbreviation" ><?php echo $t->descKeyDe; ?></td >
-				<td class="side" ><?php echo $t->forceAlignment; ?></td >
+				<td class="abbreviation" ><?php echo $t->$langDesc; ?></td >
+				<td class="side" ><?php echo $enums[array_search('ForceAlignment'.$t->forceAlignment,
+						array_column($enums, 'enum_key'), true)]->$langName;
+					?></td >
+
 			</tr >
 		<?php }
 	} ?>

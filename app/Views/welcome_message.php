@@ -218,30 +218,34 @@
 	</div>
 
 	<div class="heroe">
-		<h1>Welcome to CodeIgniter <?= CodeIgniter\CodeIgniter::CI_VERSION ?></h1>
+		<h1 >Welcome to CodeIgniter <?= CodeIgniter\CodeIgniter::CI_VERSION ?></h1 >
 
-		<h2>The small framework with powerful features</h2>
+		<h2 >The small framework with powerful features</h2 >
 
-	</div>
+	</div >
 
-</header>
+</header >
 
 <!-- CONTENT -->
 
-<h2>Englisch</h2>
-<div><?php echo $result_en;?></div>
-<h2>Deutsch</h2>
-<div><?php echo $result_de; ?></div>
+<a class="dropdown-item" href="<?= base_url('lang/en') ?>" >English</a >
+<a class="dropdown-item" href="<?= base_url('lang/de') ?>" >Deutsch</a >
 
-<section>
+<h2 >Englisch</h2 >
+<!--<div>--><?php //echo $result_en;?><!--</div>-->
+<div ><?php echo $_SESSION['lang']; ?></div >
+<h2 >Deutsch</h2 >
+<!--<div>--><?php //echo $result_de; ?><!--</div>-->
 
-	<h1>About this page</h1>
+<section >
 
-	<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
+	<h1 >About this page</h1 >
 
-	<p>If you would like to edit this page you will find it located at:</p>
+	<p >The page you are looking at is being generated dynamically by CodeIgniter.</p >
 
-	<pre><code>app/Views/welcome_message.php</code></pre>
+	<p >If you would like to edit this page you will find it located at:</p >
+
+	<pre ><code >app/Views/welcome_message.php</code ></pre >
 
 	<p>The corresponding controller for this page can be found at:</p>
 
