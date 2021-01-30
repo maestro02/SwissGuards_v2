@@ -31,7 +31,7 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index', ['as' => 'home']);
+$routes->get('/', 'HomeController::index', ['as' => 'home']);
 
 $routes->add('lang/(:alpha)', 'LanguageController::languageSwitch/$1');
 

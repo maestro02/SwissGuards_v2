@@ -1,6 +1,7 @@
 <?php
 namespace Assets;
 echo view('partials/UnitList_Head');
+echo view('/partials/Navbar');
 $langName = 'nameKey'.ucfirst($_SESSION['lang']);
 $langDesc = 'descKey'.ucfirst($_SESSION['lang']);
 ?>

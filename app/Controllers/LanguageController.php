@@ -14,8 +14,14 @@ class LanguageController extends BaseController
 
 	public function index()
 	{
+		// $session = session();
+		// $session->set('lang', ($session->lang !== "") ? $session->lang : "de");
+		// return redirect()->to(base_url());
+
 		$session = session();
-		$session->set('lang', ($session->lang !== "") ? $session->lang : "de");
+		$locale = $this->request->getLocale();
+		$session->remove('lang');
+		$session->set('lang', $locale);
 		return redirect()->to(base_url());
 	}
 

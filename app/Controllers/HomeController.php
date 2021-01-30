@@ -1,11 +1,11 @@
 <?php namespace App\Controllers;
 
-
 class HomeController extends BaseController
 {
 	public function index():string
 	{
-		return view('welcome_message');
+		$data['page_title'] = 'Swiss Guards @ SWGOH';
+		return view('welcome_message', $data);
 	}
 
 	//--------------------------------------------------------------------

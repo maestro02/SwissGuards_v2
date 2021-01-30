@@ -40,12 +40,9 @@ class BaseController extends Controller
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
 		// E.g.:
+		// $session = \Config\Services::session();
+
 		$session = \Config\Services::session();
-		// $session->set('lang', (($session->lang !== "") ? $session->lang : "de"));
-		if (!$session->lang) {
-			$session->set('lang', "de");
-		}
-		// $_SESSION['lang']="de";
 		$language = \Config\Services::language();
 		$language->setLocale($session->lang);
 	}
