@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en" >
 <?php echo view('/Templates/Default_View'); ?>
 <head >
 	<meta charset="UTF-8" >
@@ -232,10 +231,11 @@
 <a class="dropdown-item" href="<?= base_url('lang/en') ?>" >English</a >
 <a class="dropdown-item" href="<?= base_url('lang/de') ?>" >Deutsch</a >
 
-<h2 >Englisch</h2 >
+<h2 >Selected Language</h2 >
 <!--<div>--><?php //echo $result_en;?><!--</div>-->
-<div ><?php echo $_SESSION['lang']; ?></div >
-<h2 >Deutsch</h2 >
+<div ><?= service('request')->getLocale() ?></div >
+<div ><?= $_SESSION['lang'] ?></div >
+<!--<h2 >Deutsch</h2 >-->
 <!--<div>--><?php //echo $result_de; ?><!--</div>-->
 
 <section >

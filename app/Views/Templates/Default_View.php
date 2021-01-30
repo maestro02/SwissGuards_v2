@@ -1,6 +1,5 @@
 <?php namespace Assets; ?>
 <!doctype html>
-<html lang="de" >
 <head >
 	<title ></title >
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" http-equiv="Content-Type"
@@ -9,7 +8,7 @@
 	<!-- Load Stylesheets -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" >
-	<link rel="stylesheet" href="<?= base_url().'/../assets/css/swgoh.css' ?>" >
+	<link rel="stylesheet" href="<?= base_url().'/../css/swgoh.css' ?>" >
 
 	<!-- Load favicon -->
 	<link rel="apple-touch-icon" sizes="57x57" href="<?= base_url().'/../assets/favicon/apple-icon-57x57.png' ?>" >

@@ -33,10 +33,10 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'HomeController::index', ['as' => 'home']);
 
-$routes->add('lang/(:alpha)', 'LanguageController::languageSwitch/$1');
+$routes->add('lang/{locale}', 'Language::index');
 
-$routes->add('toons', 'Units\UnitList::toonList');
-$routes->add('ships', 'Units\UnitList::shipList');
+$routes->add('{locale}/toons', 'Units\UnitList::toonList');
+$routes->add('{locale}/ships', 'Units\UnitList::shipList');
 
 
 /**

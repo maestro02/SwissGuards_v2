@@ -3,7 +3,6 @@
 	        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation" >
 		<span class="navbar-toggler-icon" ></span >
 	</button >
-	<?php $language = include(APPPATH.'Language/'.$_SESSION['lang'].'/app.php'); ?>
 	<a class="navbar-brand mr-auto" href="<?php echo base_url(''); ?>" >&emsp;<img
 				src="<?php echo base_url().'/../assets/favicon/favicon-32x32.png'; ?>" width="30" height="30"
 				class="align-top" alt="Swiss Guards" > Swiss Guards</a >
@@ -51,13 +50,13 @@
 				<a class="nav-link active" href="<?php echo site_url('geo-tb'); ?>" >Geo-TB</a >
 			</li >
 			<li class="nav-item" >
-				<a class="nav-link active" href="<?php echo base_url('toons'); ?>" >
-					<?php echo $language['Navbar']['Char']; ?>
+				<a class="nav-link active" href="<?php echo base_url(lang("app.Main.Lang.lang_short").'/toons'); ?>" >
+					<?= lang("app.Navbar.Char") ?>
 				</a >
 			</li >
 			<li class="nav-item" >
-				<a class="nav-link active" href="<?php echo base_url('ships'); ?>" >
-					<?php echo $language['Navbar']['Ships']; ?>
+				<a class="nav-link active" href="<?php echo base_url(lang("app.Main.Lang.lang_short").'/ships'); ?>" >
+					<?= lang("app.Navbar.Ships") ?>
 				</a >
 			</li >
 			<li class="nav-item" >
@@ -71,19 +70,19 @@
 			<li class="nav-item dropdown" >
 				<a href="#" class="nav-link active dropdown-toggle" id="charDropdown" data-toggle="dropdown"
 				   role="button" aria-expanded="false" aria-haspopup="true" >
-					<?= $language['Main']['Lang']['lang_short'] ?>
+					<?= lang("app.Main.Lang.lang_short") ?>
 					<span class="caret" ></span >
 				</a >
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="charDropdown" >
-					<a href="<?= base_url('lang/'.$language['Main']['Lang']['foreign_short']) ?>"
+					<a href="<?= base_url('lang/'.lang("app.Main.Lang.foreign_short")) ?>"
 					   class="dropdown-item" >
 						<img src="
 						<?php if ($_SESSION['lang'] === 'en') {
 							echo base_url().'/../assets/flags/Germany.png';
 						} else {
 							echo base_url().'/../assets/flags/UK.png';
-						} ?>" alt="<?= $language['Main']['Lang']['foreign_long'] ?>" width="30px" height="30px" />
-						&nbsp;<?= $language['Main']['Lang']['foreign_long'] ?>
+						} ?>" alt="<?= lang("app.Main.Lang.foreign_long") ?>" width="30px" height="30px" />
+						&nbsp;<?= lang("app.Main.Lang.foreign_long") ?>
 					</a >
 				</div >
 			</li >
