@@ -45,6 +45,7 @@ class BaseController extends Controller
 		$session = \Config\Services::session();
 		$language = \Config\Services::language();
 		$language->setLocale($session->lang);
+		$_SESSION['lang'] = $session->lang;
 	}
 
 }
