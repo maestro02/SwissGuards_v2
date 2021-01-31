@@ -4,10 +4,15 @@ html {
     min-width: 100%;
 }
 
-body {
-    padding: 0px 15px 0px 15px;
+.header {
     margin-bottom: 60px;
 }
+
+.body {
+    padding: 0px 15px 0px 15px;
+    position: relative;
+}
+
 
 .filterValueButton {
     margin: 5 5 5 0;

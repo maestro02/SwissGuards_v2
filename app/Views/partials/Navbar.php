@@ -1,9 +1,10 @@
-<nav class="navbar navbar-dark navbar-expand-lg navbar-doggleable-lg bg-dark fixed-top" role="navigation" >
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
-	        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation" >
-		<span class="navbar-toggler-icon" ></span >
-	</button >
-	<a class="navbar-brand mr-auto" href="<?php echo base_url(''); ?>" >&emsp;<img
+<div class="header" >
+	<nav class="navbar navbar-dark navbar-expand-lg navbar-doggleable-lg bg-dark fixed-top" role="navigation" >
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
+		        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation" >
+			<span class="navbar-toggler-icon" ></span >
+		</button >
+		<a class="navbar-brand mr-auto" href="<?php echo base_url(''); ?>" >&emsp;<img
 				src="<?php echo base_url().'/../assets/favicon/favicon-32x32.png'; ?>" width="30" height="30"
 				class="align-top" alt="Swiss Guards" > Swiss Guards</a >
 
@@ -88,14 +89,5 @@
 			</li >
 		</ul >
 	</div >&emsp;
-</nav >
-<?php //if ($this->session->flashdata('message')) { ?>
-<!--	<div class="container" style="padding-top:40px;" >-->
-<!--		<div class="alert alert-info alert-dismissible" role="alert" >-->
-<!--			<button type="button" class="close" data-dismiss="alert" aria-label="Close" >-->
-<!--				<span aria-hidden="true" >&times;</span >-->
-<!--			</button >-->
-<!--			--><?php //echo $this->session->flashdata('message'); ?>
-<!--		</div >-->
-<!--	</div >-->
-<?php //} ?>
+	</nav >
+</div >
