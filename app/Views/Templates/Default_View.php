@@ -1,7 +1,8 @@
 <?php namespace Assets; ?>
 <!doctype html>
 <head >
-	<title >Swiss Guards</title >
+	<title ><?= /** @var string $page_title */
+		$page_title ?></title >
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" http-equiv="Content-Type" >
 
 	<!-- Load Stylesheets -->
