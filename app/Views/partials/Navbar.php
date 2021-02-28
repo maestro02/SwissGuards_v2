@@ -5,32 +5,32 @@
 			<span class="navbar-toggler-icon" ></span >
 		</button >
 		<a class="navbar-brand mr-auto" href="<?php echo base_url(''); ?>" >&emsp;<img
-				src="<?php echo base_url().'/../assets/favicon/favicon-32x32.png'; ?>" width="30" height="30"
-				class="align-top" alt="Swiss Guards" > Swiss Guards</a >
+					src="<?php echo base_url().'/../assets/favicon/favicon-32x32.png'; ?>" width="30" height="30"
+					class="align-top" alt="Swiss Guards" > Swiss Guards</a >
 
-	<div class="navbar-collapse collapse" id="navbarContent" >
-		<ul class="nav navbar-nav ml-auto" >
-			<li class="nav-item active" >
-				<a class="nav-link" href="<?php echo base_url(''); ?>" >Home <span
-							class="sr-only" >(current)</span ></a >
-			</li >
-			<?php //if (!$this->ion_auth->logged_in()) { ?>
-			<!--	<li class="nav-item" >-->
-			<!--		<a class="nav-link active" href="--><?php //echo site_url('bewerben'); ?><!--" >-->
-			<!--			--><?php //echo $this->lang->language['bewerben']; ?>
-			<!--		</a >-->
-			<!--	</li >-->
-			<?php //} ?>
-			<li class="nav-item dropdown" >
-				<a href="#" class="nav-link active dropdown-toggle" id="shipDropdown" data-toggle="dropdown"
-				   role="button" aria-expanded="false" aria-haspopup="true" >Swiss Guards<span
-							class="caret" ></span ></a >
-				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="shipDropdown" >
-					<a class="dropdown-item"
-					   href="<?php echo site_url('visit'); ?>" ><?php echo 'Neue Mitglieder'/*$this->lang->language['new_member']*/ ?></a >
-					<div class="dropdown-divider" ></div >
-					<?php //if ($this->ion_auth->logged_in()) { ?>
-					<!--	<a class="dropdown-item"-->
+		<div class="navbar-collapse collapse" id="navbarContent" >
+			<ul class="nav navbar-nav ml-auto" >
+				<li class="nav-item active" >
+					<a class="nav-link" href="<?php echo base_url(''); ?>" >Home <span
+								class="sr-only" >(current)</span ></a >
+				</li >
+				<?php if (!$is_logged_in) { ?>
+					<li class="nav-item" >
+						<a class="nav-link active" href="<?php echo site_url('bewerben'); ?>" >
+							<?= lang("app.Navbar.Bewerben") ?>
+						</a >
+					</li >
+				<?php } ?>
+				<li class="nav-item dropdown" >
+					<a href="#" class="nav-link active dropdown-toggle" id="shipDropdown" data-toggle="dropdown"
+					   role="button" aria-expanded="false" aria-haspopup="true" >Swiss Guards<span
+								class="caret" ></span ></a >
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="shipDropdown" >
+						<a class="dropdown-item"
+						   href="<?php echo site_url('visit'); ?>" ><?php echo 'Neue Mitglieder'/*$this->lang->language['new_member']*/ ?></a >
+						<div class="dropdown-divider" ></div >
+						<?php //if ($this->ion_auth->logged_in()) { ?>
+						<!--	<a class="dropdown-item"-->
 					<!--	   href="--><?php //echo site_url('members'); ?><!--" >-->
 					<?php //echo 'Mitgliederliste'/*$this->lang->language['mitgliederliste']*/ ?><!--</a >-->
 					<!--	<a class="dropdown-item"-->

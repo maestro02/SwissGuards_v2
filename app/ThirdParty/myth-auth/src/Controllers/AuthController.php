@@ -52,7 +52,10 @@ class AuthController extends Controller
         // Set a return URL if none is specified
         $_SESSION['redirect_url'] = session('redirect_url') ?? previous_url() ?? '/';
 
-        return $this->_render($this->config->views['login'], ['config' => $this->config]);
+        $data['page_title'] = 'Login';
+        $data['config'] = $this->config;
+
+        return $this->_render($this->config->views['login'], $data);
     }
 
     protected function _render(string $view, array $data = [])
@@ -132,7 +135,11 @@ class AuthController extends Controller
             return redirect()->back()->withInput()->with('error', lang('Auth.registerDisabled'));
         }
 
-        return $this->_render($this->config->views['register'], ['config' => $this->config]);
+        $data['page_title'] = 'Register';
+        $data['config'] = $this->config;
+
+
+        return $this->_render($this->config->views['register'], $data);
     }
 
     //--------------------------------------------------------------------
@@ -213,7 +220,10 @@ class AuthController extends Controller
             return redirect()->route('login')->with('error', lang('Auth.forgotDisabled'));
         }
 
-        return $this->_render($this->config->views['forgot'], ['config' => $this->config]);
+        $data['page_title'] = 'Passwort vergessen';
+        $data['config'] = $this->config;
+
+        return $this->_render($this->config->views['forgot'], $data);
     }
 
     /**
@@ -259,10 +269,11 @@ class AuthController extends Controller
 
         $token = $this->request->getGet('token');
 
-        return $this->_render($this->config->views['reset'], [
-            'config' => $this->config,
-            'token' => $token,
-        ]);
+        $data['page_title'] = 'Passwort zurücksetzen';
+        $data['config'] = $this->config;
+        $data['token'] = $token;
+
+        return $this->_render($this->config->views['reset'], $data);
     }
 
     /**

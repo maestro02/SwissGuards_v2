@@ -1,7 +1,9 @@
-<?= $this->extend($config->viewLayout) ?>
+<?= view(APPPATH.'/Views/Templates/Default_View') ?>
 <?= $this->section('main') ?>
+<a ><?= APPPATH.'/Views/Templates/Default_View' ?></a >
 
 <div class="container" >
+    <div >asdf</div >
     <div class="row" >
         <div class="col-sm-6 offset-sm-3" >
 

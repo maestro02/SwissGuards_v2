@@ -18,12 +18,12 @@
 <!-- CONTENT -->
 <div class="" >
 	<a class="dropdown-item" href="<?= base_url('lang/en') ?>" >English</a >
-<a class="dropdown-item" href="<?= base_url('lang/de') ?>" >Deutsch</a >
+	<a class="dropdown-item" href="<?= base_url('lang/de') ?>" >Deutsch</a >
 
-<h2 >Selected Language</h2 >
-<!--<div>--><?php //echo $result_en;?><!--</div>-->
-<div ><?= service('request')->getLocale() ?></div >
-<div ><?= $_SESSION['lang'] ?></div >
+	<h2 >Selected Language</h2 >
+	<!--<div>--><?php //echo $result_en;?><!--</div>-->
+	<div ><?= service('request')->getLocale() ?></div >
+	<div ><?= $_SESSION['lang'] ?></div >
 </div >
 <!--<h2 >Deutsch</h2 >-->
 <!--<div>--><?php //echo $result_de; ?><!--</div>-->

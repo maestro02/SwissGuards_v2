@@ -13,8 +13,8 @@ return [
 		]
 	],
 	'Navbar' => [
+		'Bewerben' => 'Application',
 		'Char' => 'Toons',
 		'Ships' => 'Ships'
 	]
-
 ];

@@ -9,12 +9,12 @@ class Auth extends \Myth\Auth\Config\Auth
 {
 	public $defaultUserGroup = 0;
 	public $views = [
-		'login' => 'Myth\Auth\Views\login',
-		'register' => 'Views/Auth/register',
-		'forgot' => 'Myth\Auth\Views\forgot',
-		'reset' => 'Myth\Auth\Views\reset',
 		'emailForgot' => 'Myth\Auth\Views\emails\forgot',
 		'emailActivation' => 'Myth\Auth\Views\emails\activation',
+		'login' => 'Myth\Auth\Views\login',
+		'register' => 'Views\Auth\register',
+		'forgot' => 'Myth\Auth\Views\forgot',
+		'reset' => 'Myth\Auth\Views\reset',
 	];
 	public $viewLayout = 'Myth\Auth\Views\layout';
 	public $validFields = [

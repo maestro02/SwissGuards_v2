@@ -23,7 +23,7 @@
 
 <body >
 
-<?= view('Myth\Auth\Views\_navbar') ?>
+<?= view(APPPATH.'/Views/Templates/Default_View') ?>
 
 <main role="main" class="container" >
     <?= $this->renderSection('main') ?>

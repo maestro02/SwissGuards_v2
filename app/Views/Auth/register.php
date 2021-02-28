@@ -1,4 +1,4 @@
-<?= $this->extend($config->viewLayout) ?>
+<?= view('/Templates/Default_View') ?>
 <?= $this->section('main') ?>
 
 <div class="container" >
