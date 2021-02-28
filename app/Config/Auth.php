@@ -14,12 +14,12 @@ class Auth extends \Myth\Auth\Config\Auth
 		'login' => 'Myth\Auth\Views\login',
 		'register' => 'Views\Auth\register',
 		'forgot' => 'Myth\Auth\Views\forgot',
-		'reset' => 'Myth\Auth\Views\reset',
+		'reset' => 'Myth\Auth\Views\reset'
 	];
-	public $viewLayout = 'Myth\Auth\Views\layout';
+	public $viewLayout = 'Views/Templates/Default_View';
 	public $validFields = [
 		'email',
-		'username',
+		'username'
 	];
 	public $allowRemembering = true;
 	public $rememberLength = 30 * YEAR;

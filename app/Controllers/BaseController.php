@@ -49,6 +49,7 @@ class BaseController extends Controller
 		$language = \Config\Services::language();
 		$language->setLocale($session->lang);
 		$_SESSION['lang'] = $session->lang;
+		$data['is_logged_in'] = logged_in();
 	}
 
 }

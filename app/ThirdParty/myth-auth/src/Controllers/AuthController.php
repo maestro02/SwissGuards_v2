@@ -1,12 +1,14 @@
 <?php namespace Myth\Auth\Controllers;
 
+use App\Controllers\BaseController;
 use App\Models\GuildPlayerModel;
 use App\Models\PlayerModel;
 use Config\Auth;
 use CodeIgniter\Controller;
 use Myth\Auth\Entities\User;
+use Symfony\Component\Debug\Debug;
 
-class AuthController extends Controller
+class AuthController extends BaseController
 {
     protected $auth;
     /**
@@ -54,6 +56,7 @@ class AuthController extends Controller
 
         $data['page_title'] = 'Login';
         $data['config'] = $this->config;
+        $data['is_logged_in'] = logged_in();
 
         return $this->_render($this->config->views['login'], $data);
     }

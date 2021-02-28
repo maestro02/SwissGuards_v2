@@ -1,6 +1,5 @@
-<?= view(APPPATH.'/Views/Templates/Default_View') ?>
 <?= $this->section('main') ?>
-<a ><?= APPPATH.'/Views/Templates/Default_View' ?></a >
+<a >Test</a >
 
 <div class="container" >
     <div >asdf</div >
