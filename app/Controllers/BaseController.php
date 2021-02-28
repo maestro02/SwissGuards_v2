@@ -26,7 +26,7 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
-	protected $helpers = ['SwgohHelp', 'auth'];
+	protected $helpers = ['SwgohHelp', 'Myth\Auth\Helpers\auth_helper'];
 
 	/**
 	 * Constructor.
