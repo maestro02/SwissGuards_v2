@@ -25,8 +25,8 @@ $langDesc = 'descKey'.ucfirst($lang);
 				<td class="name char-list-name" ><img class="char-portrait-list-img"
 				                                      src="/assets/units/<?php echo $t->baseId.'.png'; ?>"
 				                                      alt="<?php echo $t->$langName; ?>" width="30" height="30" />
-					<div
-							class="name" > <?php echo $t->$langName; ?></div >
+					<span
+							class="name" > <?php echo $t->$langName; ?></span >
 					</a></td >
 				<td class="abbreviation" ><?php
 					$cl = '';
