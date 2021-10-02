@@ -1,8 +1,8 @@
 <?php namespace Config;
 
 use Myth\Auth\Authentication\Passwords\CompositionValidator;
-use Myth\Auth\Authentication\Passwords\DictionaryValidator;
 use Myth\Auth\Authentication\Passwords\NothingPersonalValidator;
+use Myth\Auth\Authentication\Passwords\DictionaryValidator;
 use Myth\Auth\Authentication\Passwords\PwnedValidator;
 
 class Auth extends \Myth\Auth\Config\Auth
