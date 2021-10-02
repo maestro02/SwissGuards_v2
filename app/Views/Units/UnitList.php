@@ -2,14 +2,17 @@
 namespace Assets;
 echo view('partials/UnitList_Head');
 echo view('/partials/Navbar');
-$langName = 'nameKey'.ucfirst($_SESSION['lang']);
-$langDesc = 'descKey'.ucfirst($_SESSION['lang']);
+$lang = ($_SESSION['lang'] === '') ? 'de' : $_SESSION['lang'];
+$langName = 'nameKey'.ucfirst($lang);
+$langDesc = 'descKey'.ucfirst($lang);
 ?>
+<p>nameKey: <?= $langName ?></p>
+<p>descKey: <?= $langDesc ?></p>
 <table id="chrlist" class="table table-striped table-hover" style="width: 100%;" >
 	<thead >
 	<tr >
 		<th class="sort" >Name</th >
-		<th class="sort" >Beschreibung</th >
+		<th class="sort" >Zugehörigkeit</th >
 		<th class="sort" >Seite</th >
 	</tr >
 	</thead >
@@ -25,7 +28,15 @@ $langDesc = 'descKey'.ucfirst($_SESSION['lang']);
 					<div
 							class="name" > <?php echo $t->$langName; ?></div >
 					</a></td >
-				<td class="abbreviation" ><?php echo $t->$langDesc; ?></td >
+				<td class="abbreviation" ><?php
+					$cl = '';
+					foreach ($t->cats as $c){
+						$cl .= $c->$langDesc.'<br>';
+					}
+
+					echo $cl;
+					?>
+				</td >
 				<td class="side" ><?php echo $enums[array_search('ForceAlignment'.$t->forceAlignment,
 						array_column($enums, 'enum_key'), true)]->$langName;
 					?></td >
