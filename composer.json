@@ -5,16 +5,15 @@
 	"homepage": "https://codeigniter.com",
 	"license": "MIT",
 	"require": {
-		"codeigniter4/framework": "^4",
-		"codeigniter4/translations": "^4",
+		"codeigniter4/framework": "^v4.3.7",
+		"codeigniter4/translations": "^v4.3.0",
 		"ext-json": "*",
 		"myth/auth": "dev-develop",
 		"php": ">=7.2",
 		"ext-curl": "*"
 	},
 	"require-dev": {
-		"fzaninotto/faker": "v1.9.1",
-		"mikey179/vfsstream": "2.0.x-dev",
+		"mikey179/vfsstream": "dev-master",
 		"roave/security-advisories": "dev-master"
 	},
 	"autoload-dev": {
