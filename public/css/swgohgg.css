@@ -11229,6 +11229,7 @@ h1.h1 {
     background-image: url(https://swgoh.gg/static/img/swgohgg-nav-orange.png)
 }
 
+/*noinspection CssInvalidMediaFeature*/
 @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-devicepixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx) {
     .navbar-brand {
         background: transparent url(https://swgoh.gg/static/img/swgohgg-nav-2x.png) 15px no-repeat;
